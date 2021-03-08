@@ -6,7 +6,7 @@ Statistical comparison and testing with MEG/EEG (and similar multidimensional ne
 2. Non-parametric cluster-based permutation tests on a single channel.
 3. Non-parametric cluster-based permutation tests on the full sensor-array.
 
-In this tutorial you will do a group-level analysis from a within-subject experiment with two experimental conditions and N=20 subjects. The *unit of observation* is the single subject. You can find the data here: <link>.
+In this tutorial you will do a group-level analysis from a within-subject experiment with two experimental conditions and N=20 subjects. The *unit of observation* is the single subject. You can find the data here: [LINK](https://www.dropbox.com/sh/ye51s8735ma2x8a/AAC9OjUBUSLgdombDuxifcYda?dl=0).
 
 ## Data and Hypothesis
 
