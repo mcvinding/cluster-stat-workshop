@@ -41,8 +41,8 @@ Load the data that contains the pre-processed single-trial data. For a group-lev
 
 ````matlab
 %% Load data
-load('d1.mat'); disp('done') 		# Data for condition 1
-load('d2.mat'); disp('done') 		# Data for condition 2
+load('d1.mat'); disp('done') 		% Data for condition 1
+load('d2.mat'); disp('done') 		% Data for condition 2
 ````
 
 The cell arrays `d1` and `d2` each contain the evoked (time-domain epoched and averaged data) for 20 subjects arranged in FieldTrip format.
@@ -365,7 +365,7 @@ The shaded area is the location of the clusters with T above the 95-percentile o
 
 For the decision to keep/reject the null hypotheisi, it does not matter where the cluster is located as long as there is at least one cluster with T more extensive that 95% of the permutation distribution.
 
-The often mistaken conclusion of cluster-based permutation tests is that the clusters tell us where the significant difference is located. The often counter-intuitive feature of cluster-based permutation tests is that the cluster's location does not directly inform our decision to keep or reject the null hypothesis. The decision is concerning the whole data feature of interest�nothing more, nothing less.
+The often mistaken conclusion of cluster-based permutation tests is that the clusters tell us where the significant difference is located. The often counter-intuitive feature of cluster-based permutation tests is that the cluster's location does not directly inform our decision to keep or reject the null hypothesis. The decision is concerning the whole data feature of interestnothing more, nothing less.
 
 The correct interpretation of the grey area in the figure above is that it is the cluster of uncorrected t-vales that together informs our decision to reject the null hypothesis.
 
@@ -437,7 +437,7 @@ cfg.numrandomization    = 1000;
 cfg.neighbours          = neighbours;
 ````
 
-As before, we also create the design matrix with the independent variable (condition) and unit of observation (trial). Again, in a real experiment, it will be the individual subjects’ responses.
+As before, we also create the design matrix with the independent variable (condition) and unit of observation (trial). Again, in a real experiment, it will be the individual subjectsâ responses.
 
 ````matlab
 % Desing matrix
