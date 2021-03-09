@@ -465,7 +465,7 @@ You can also visualise the test result on the full sensor array  by adding the s
 ````matlab
 %% Plot
 % copy stat mask
-ga1.mask = stat_mags.mask;
+ga1.mask = stats.mask;
 
 % Plot
 figure;
