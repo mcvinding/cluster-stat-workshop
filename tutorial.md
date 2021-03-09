@@ -465,7 +465,7 @@ You can also visualise the test result on the full sensor array  by adding the s
 ````matlab
 %% Plot
 % copy stat mask
-evo_thumb.mask = stat_mags.mask;
+ga1.mask = stat_mags.mask;
 
 % Plot
 figure;
@@ -474,7 +474,7 @@ cfg.channel         = 'megmag';
 cfg.maskparameter   = 'mask';
 cfg.maskfacealpha   = 0.5;
 cfg.layout          = 'neuromag306mag';
-ft_multiplotER(cfg, evo_thumb, evo_little)
+ft_multiplotER(cfg, ga1, ga2)
 ````
 
 ![](figures/figure08.jpg)
