@@ -87,8 +87,8 @@ This code will plot all subjects' responses in a single figure per condition (ca
 %% Plot MEG data
 cfg = [];
 cfg.layout = 'neuromag306mag.lay';
-ft_multiplotER(cfg, d1{:}); title('Condition 1')   # Plot condition 1
-ft_multiplotER(cfg, d2{:}); title('Condition 2')   # Plot condition 2
+ft_multiplotER(cfg, d1{:}); title('Condition 1')   % Plot condition 1
+ft_multiplotER(cfg, d2{:}); title('Condition 2')   % Plot condition 2
 ````
 
 ![](figures/figure01.jpg)
