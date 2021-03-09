@@ -373,16 +373,16 @@ To understand the logic of the inference, it might help to plot the cluster perm
 
 ````matlab
 figure;
-subplot(2,1,1); hist(stats.negdistribution, 50)
+subplot(2,1,1); hist(stat_single.negdistribution, 50)
 crit = prctile(stats.negdistribution, 2.5);
 line([crit, crit], [0 300], 'LineWidth', 2, 'Color', 'b', 'LineStyle','--');
-line([stats.negclusters(1).clusterstat, stats.negclusters(1).clusterstat], [0 300], 'LineWidth', 2, 'Color', 'r');
+line([stat_single.negclusters(1).clusterstat, stat_single.negclusters(1).clusterstat], [0 300], 'LineWidth', 2, 'Color', 'r');
 title('Negative cluster T')
 
-subplot(2,1,2); hist(stats.posdistribution, 100)
-crit = prctile(stats.posdistribution, 97.5);
+subplot(2,1,2); hist(stat_single.posdistribution, 100)
+crit = prctile(stat_single.posdistribution, 97.5);
 line([crit, crit], [0 300], 'LineWidth', 2, 'Color', 'b', 'LineStyle','--');
-line([stats.posclusters(1).clusterstat, stats.posclusters(1).clusterstat], [0 300], 'LineWidth', 2, 'Color', 'r');
+line([stat_single.posclusters(1).clusterstat, stat_single.posclusters(1).clusterstat], [0 300], 'LineWidth', 2, 'Color', 'r');
 title('Positive cluster T')
 ````
 
