@@ -24,7 +24,7 @@ The tutorial's goal is not to teach MATLAB or FieldTrip per se but will use Fiel
 
 All material is free to use. The material is meant for educational purpose.
 
-The tutorial material is created 2021 by Mikkel C. Vinding, NatMEG, Karolinska Insitutet.
+The tutorial material is created 2021 by Mikkel C. Vinding, NatMEG, Karolinska Institutet.
 
 If you discover errors in the tutorials, code that will not run, or similar, please post your errors to: mikkel.vinding@ki.se
 
