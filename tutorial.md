@@ -1,6 +1,6 @@
 # Non-Parametric Cluster-Based Permutation Tests for Analysing Neural Time-Series tutorial
 
-Statistical comparison and testing with MEG/EEG (and similar multidimensional neural time-series data) signals require considerable considerations on the design of the study and how to control for multiple comparisons. In this tutorial, we shall look at different approaches to comparing MEG/EEG signals from two conditions.
+Statistical comparison and testing with MEG/EEG signals (and similar multidimensional neural time-series data) require considerable considerations on the design of the study and how to control for multiple comparisons. In this tutorial, we shall look at different approaches to comparing MEG/EEG signals from two experimental conditions.
 
 1. Analysis based on pre-specified data feature.
 2. Non-parametric cluster-based permutation tests on a single channel.
@@ -12,15 +12,19 @@ You will do a group-level analysis from a within-subject experiment with two exp
 
 The data simulates the evoked responses for an experiment where the subject received a tactile stimulation on the hand while under low attentional load (*data1*) or high attentional load (*data2*). At this stage, the data is already pre-processed (filtered, epoched, removed bad trials, etc.) and averaged across trials within-subject for each condition. The data is arranged so that the index of each dataset corresponds to the same subject, i.e., the first response in *data1* and *data2* both belong to subject #1, and so on.
 
-The datafiles contain whole-head MEG data consisting of 102 magnetometers from a Neuromag Triux MEG system and EEG from 97 channels arranged in a standard 1010 montage.
+The datafiles contain whole-head MEG data consisting of 102 magnetometers from a Neuromag Triux MEG system and EEG from 97 channels arranged in a standard 10-10 montage.
 
-## Hypothesis
+### Hypothesis
 
 The question we want to test if attentional load affect the primary somatosensory processing of the tactile stimulation?
 
-**H1: Attentional load influence the primary somatosensory processing.**
+**H1:** Attentional load influence the primary somatosensory processing.
 
-**H0: The primary somatosensory processing is the same independent of attentional load.**
+**H0:** The primary somatosensory processing is the same independent of attentional load.
+
+The important question you now have to ask yourself is: *how do I define "primary somatosensory processing"?* This is important, as it will determine which features in the M/EEG data you chooce to focus on, which values you will extract from the M/EEG signals, and ultimatly how you do your statistical test. Remeber that the statistical test should not determine which features you select, the features you select should determine your statisstical test.
+
+When you have though about how you want to operatinalize your hypothesis, it is time to get started doing some inferential statistics!
 
 ## Setup paths
 
@@ -49,7 +53,7 @@ The cell arrays `d1` and `d2` each contain the evoked (time-domain epoched and a
 
 ### MEG or EEG
 
-Note that there is both MEG and EEG data in the datasets. All examples below will use the MEG data. If you are up for the challenge,  you can change the code to do the tutorial on the EEG data instead. Every time you encounter example code where you specify the type of channel to do the operation on, e.g.:
+Note that there is both MEG and EEG data in the datasets. All examples below will use the MEG data. If you are up for the challenge, you can change the code to do the tutorial on the EEG data instead. Every time you encounter example code where you specify the type of channel to do the operation on, e.g.:
 
 ````matlab
 cfg.channel = 'megmag';
@@ -79,7 +83,7 @@ Take the time to explore the data a bit. Type `d1{1}` to see the content of the 
 
 If you are unfamiliar with FieldTrip, see if you can find 1) the sampling rate, 2) the start/stop time of the epoch, and 3) the actual M/EEG data?
 
-Visualising data is a good way to inspect M/EEG data. Use `ft_multiplotER` to plot the ERFs/ERPs. The plots show the averaged responses for all sensors of the given type. The plots are interactive. Use your courser to select channels and then click on them to open a new figure that zooms in on the selected channels. You can then highlight parts of the time-series in the same way to open a new figure that shows the topography of that time window.  Use this to explore the evoked responses.
+Visualising data is a good way to inspect M/EEG data. Use `ft_multiplotER` to plot the ERFs/ERPs. The plots show the averaged responses for all sensors of the given type. The plots are interactive. Use your curser to select channels and then click on them to open a new figure that zooms in on the selected channels. You can then highlight parts of the time-series in the same way to open a new figure that shows the topography of that time window.  Use this to explore the evoked responses.
 
 This code will plot all subjects' responses in a single figure per condition (can be slow):
 
@@ -206,7 +210,13 @@ Finally, let us make the statistical comparison. Use MATLAB's built-in function 
 
 ````matlab
 %% T-test
-[H, P, CI, t] = ttest(pk_d1, pk_d2)    # H: favourd hypothesis, P: p-value, CI: confidence interval, t: t-statistic
+% Inspect the output:
+%   H: favoured hypothesis
+%   P: p-value
+%   CI: confidence interval
+%   t: t-statistic
+
+[H, P, CI, t] = ttest(pk_d1, pk_d2)
 ````
 
 Explore the test result on your own. Did you find a difference?
@@ -502,16 +512,19 @@ title('Positive cluster T')
 
 ![](figures/figure07.jpg)
 
-The red line is the significance threshold, and the blue line is the observed T-value.
+The red line is the significance threshold. The blue line is the observed T-value.
 
 ## End of the tutorial
 
-The tutorial showed you three ways of testing the hypothesis of a difference in a neural time-series between two conditions. The first way was to use a t-test to test a very specific on one feature of the data. The second used the cluster-based permutation test to test if there was a difference in a single channel. The thirds used the cluster-based permutation test to test if there was a difference in the entire sensor array.
+The tutorial showed you three ways of testing the hypothesis of a difference in a neural time-series between two conditions. 
+1. Use a t-test to test a very specific feature of the data. 
+2. Used the cluster-based permutation test to test if there was a difference in a single channel. 
+3. Used the cluster-based permutation test to test if there was a difference in the entire sensor array.
 
 The question you might be thinking of right now is probably: *which one is the best test*?
 
-The answer: that depends on your hypothesis!
+The answer: *that depends on your hypothesis!*
 
-Suppose you have a specific hypothesis, e.g., that your experimental manipulation affects the peak value of a given ERF/ERP component. In that case, you do not need to include any other data points not related to the hypothesis. You only need to test the point that concerns your hypothesis (takin into account how to summarise peak values). Using a single t-test is appropriate. However, if you are unsure about the precise time point or location of the effect, the point-based feature summary approach is dangerous as it invites hypothesising about specific time point after having visually compared time-series and (unintentionally) decided where the effect is. Then it is better to do your test on the entire data segment where you expect an effect could appear. 
+Suppose you have a specific hypothesis, e.g., that your experimental manipulation affects the peak value of a given ERF/ERP component. In that case, you do not need to include any other data points not related to the hypothesis. You only need to test the point that concerns your hypothesis (taking into account how to summarise peak values). Using a single t-test is appropriate. However, if you are unsure about the precise time point or location of the effect, the point-based feature summary approach is dangerous as it invites hypothesising about specific time point after having visually compared time-series and (unintentionally) decided where the effect is. If you are unsure, it is better to do your test on the entire data segment where you expect an effect could appear. In that case, you should adjust your analysis for multiple comparisons.
 
-In that case, you should adjust your analysis for multiple comparisons. Cluster-based permutation tests take advantage of the fact that M/EEG data is inherently autocorrelated along time, space, and frequency dimension and use clustering to control the false discovery rate. It, therefore, allows you to have a less fixed hypothesis that a single point, while preserving statistical sensitivity. In this context, "less fixed hypothesis" means that it is not fixed on a single point in time/location. Remember that the hypothesise that you test with cluster-based permutation tests is the null-hypothesis of interchangeable labels on the data of interest that you enter into the test.
+Cluster-based permutation tests take advantage of the fact that M/EEG data is inherently autocorrelated along time, space, and frequency dimensions and use clustering to control the false discovery rate. It, therefore, allows you to have a less fixed hypothesis that a single point, while preserving statistical sensitivity. In this context, "less fixed hypothesis" means that it is not fixed on a single point in time/location. Remember that the hypothesise that you test with cluster-based permutation tests is the null-hypothesis of interchangeable labels on the data of interest that you enter into the test.
